@@ -4,6 +4,7 @@ import NavBar from "./components/NavBar";
 import { BrowserRouter } from "react-router-dom";
 import PlanTrip from "./components/PlanTrip";
 import Router from "./Router";
+import Logout from "./components/Logout";
 
 
 
@@ -23,7 +24,6 @@ function App() {
     <BrowserRouter>
     <NavBar/>
     <Router/>
-    {/* <Footer/> */}
    </BrowserRouter>
   )
 }

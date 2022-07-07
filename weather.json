@@ -1,0 +1,30 @@
+{
+  "coord": { "lon": -97.7431, "lat": 30.2672 },
+  "weather": [
+    { "id": 800, "main": "Clear", "description": "clear sky", "icon": "01n" }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 302.05,
+    "feels_like": 305.66,
+    "temp_min": 300.7,
+    "temp_max": 303.51,
+    "pressure": 1014,
+    "humidity": 70
+  },
+  "visibility": 10000,
+  "wind": { "speed": 5.14, "deg": 180, "gust": 8.75 },
+  "clouds": { "all": 0 },
+  "dt": 1657085400,
+  "sys": {
+    "type": 2,
+    "id": 2003218,
+    "country": "US",
+    "sunrise": 1657107289,
+    "sunset": 1657157777
+  },
+  "timezone": -18000,
+  "id": 4671654,
+  "name": "Austin",
+  "cod": 200
+}

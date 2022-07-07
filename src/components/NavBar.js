@@ -91,12 +91,30 @@ const NavBar = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography color='#FFC13A' textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+              <Button
+                component={Link}
+                to="/login"
+                key="login"
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: '#FFC13A', display: 'block' }}
+              >Login</Button>
+              <Button
+                component={Link}
+                to="/plan"
+                key="plan"
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: '#FFC13A', display: 'block' }}
+              > Plan Trip</Button>
+              <Button
+                component={Link}
+                to="/review"
+                key="review"
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: '#FFC13A', display: 'block' }}
+              >
+                Review
+              </Button>
+               </Menu>
           </Box>
           
           <Typography
@@ -121,21 +139,21 @@ const NavBar = () => {
             
               <Button
                 component={Link}
-                to="/plan"
-                key="plan"
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: '#FFC13A', display: 'block' }}
-              >
-                Plan Trip
-              </Button>
-              <Button
-                component={Link}
                 to="/login"
                 key="login"
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: '#FFC13A', display: 'block' }}
               >
                 Login
+              </Button>
+              <Button
+                component={Link}
+                to="/plan"
+                key="plan"
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: '#FFC13A', display: 'block' }}
+              >
+                Plan Trip
               </Button>
               <Button
                 component={Link}
@@ -171,11 +189,22 @@ const NavBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+
+                <Button component={Link} to='/login'>
+                  Login
+                </Button>
+                <Button component={Link} to='/plan'>
+                  Plan Trip
+                </Button>
+                <Button component={Link} to='/review'>
+                  Review Trip
+                </Button>
+                <Button component={Link} to='/logout'>
+                  Logout
+                </Button>
+              </Box>
+
             </Menu>
           </Box>
         </Toolbar>
