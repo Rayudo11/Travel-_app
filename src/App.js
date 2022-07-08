@@ -10,15 +10,15 @@ import Logout from "./components/Logout";
 
 function App() {
 
-  const [clients,setClients ] = useState([]);
+  // const [clients,setClients ] = useState([]);
  
-  useEffect(()=>{
-    fetch('https://capstone-api-rayudo11.vercel.app/clients')
-      .then(res => res.json())
-      .then(data => setClients(data))
-  },[])
+  // useEffect(()=>{
+  //   fetch('https://capstone-api-rayudo11.vercel.app/clients')
+  //     .then(res => res.json())
+  //     .then(data => setClients(data))
+  // },[])
 
-  useEffect(()=>{console.log(clients)},[clients])
+  // useEffect(()=>{console.log(clients)},[clients])
  
   return(
     <BrowserRouter>

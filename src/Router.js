@@ -6,8 +6,11 @@ import PlanTrip from "./components/PlanTrip";
 import ReviewTrip from "./components/reviewTrip";
 import Weather from "./components/Weather";
 import Logout from "./components/Logout";
+import Home from "./components/Home";
 
 const Router = () => {
+  
+  
   // const checkAuth = () => {};
 
   //Check the cookies for a cookie called "loggedIn"
@@ -25,6 +28,7 @@ const Router = () => {
       <Route path="/drop" element={<DropDown />} />
       <Route path="/weather" element={<Weather />} />
       <Route path="/logout" element={<Logout />} />
+      <Route path="/" element={<Home/>}/>
     </Routes>
   );
 };

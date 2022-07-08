@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import axios from 'axios'
-import CustomCard from './CustomCard'
 
 
 
@@ -22,8 +21,7 @@ function Weather() {
     }
   }
    return(
-     <CustomCard className="weather">
-       <img src="" alt="" />
+     <div className="weather">
         <div className="search">
         <input
           value={location}
@@ -62,10 +60,7 @@ function Weather() {
           </div>
         }
          </div>
-
-      
-
-     </CustomCard>
+         </div>
    )
 }
 
