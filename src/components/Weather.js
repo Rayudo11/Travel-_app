@@ -3,7 +3,6 @@ import axios from 'axios'
 
 
 
-
 function Weather() {
  
   const [data, setData] = useState({})
@@ -28,7 +27,8 @@ function Weather() {
           onChange={event => setLocation(event.target.value)}
           onKeyPress={searchLocation}
           placeholder='Enter Location'
-          type="text" />
+          type="text"
+          style={{ marginTop: "80px"}} />
       </div>
       <div className="container">
         <div className="top">
@@ -60,7 +60,10 @@ function Weather() {
           </div>
         }
          </div>
-         </div>
+
+      
+
+     </div>
    )
 }
 

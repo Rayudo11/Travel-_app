@@ -13,14 +13,26 @@ function LoginForm() {
 
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
+  
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     try {
-      axios.post("http://localhost:3001/login", { user, password });
+      let response = await axios.post("http://localhost:3001/login", {
+        user,
+        password,
+      });
+      console.log("response", response);
+      let usertoken = response.data.token;
+      console.log("usertoken", usertoken);
+      localStorage.setItem("token", usertoken);
+      console.log("getitem", localStorage.getItem("token"));
       navigate("/plan");
     } catch (error) {
-      console.log("login error", error);
+      console.log("error", error);
+      
     }
+    //handle error//
+    //learn about jwt tokens//
   };
   return (
     <div style={{ position: "relative", height: "700px" }}>
