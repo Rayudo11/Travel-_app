@@ -22,14 +22,13 @@ function LoginForm() {
         user,
         password,
       });
-      console.log("response", response);
+
       let usertoken = await response.data.token;
       let userID = await response.data.userID;
-      console.log("userID", userID);
-      console.log("usertoken", usertoken);
+
       localStorage.setItem("token", usertoken);
       localStorage.setItem("userID", userID);
-      // console.log("localstorage", localStorage.getItem("userID"));
+      
       navigate("/plan");
     } catch (error) {
       console.log("error", error);

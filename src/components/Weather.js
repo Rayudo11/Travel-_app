@@ -8,11 +8,13 @@ function Weather({ data, searchLocation, location, setLocation }) {
         <p
           value={location}
           // onChange={(event) => setLocation(event.target.value)}
-         
+
           placeholder="Enter Location"
           type="text"
           style={{ marginTop: "80px" }}
-        >{location}</p>
+        >
+          {location}
+        </p>
       </div>
       <div className="container">
         <div className="top">

@@ -1,46 +1,34 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import axios from "axios";
 import TextField from "@mui/material/TextField";
 import Weather from "./Weather";
+import { useNavigate } from "react-router";
 
 function PlanTrip() {
-  const budgetInput = useRef("");
-  const locationInput = useRef("");
-  const transportationInput = useRef("");
-  const attendeesInput = useRef("");
+  let navigate = useNavigate;
   const [data, setData] = useState({});
   const [budget, setBudget] = useState("");
   const [location, setLocation] = useState("");
   const [transportation, setTransportation] = useState("");
   const [attendees, setAttendees] = useState("");
+  const [success, setSuccess] = useState(false);
 
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=imperial&appid=895284fb2d2c50a520ea537456963d9c`;
 
   const handleSubmit = (e) => {
-    // console.log(budgetInput.current.value);
-    // budget = budgetInput.current.value;
-    // location = locationInput.current.value;
-    // transportation = transportationInput.current.value;
-    // attendees = attendeesInput.current.value;
-    // const body = { budget, location, transportation, attendees };
-    // console.log(body);
     searchLocation(e);
     handlePost();
   };
 
   const searchLocation = (event) => {
-    // if (event.key === "Enter") {
-    console.log(location);
     axios
       .get(url)
       .then((response) => {
         setData(response.data);
-        console.log("searchLocation response", response.data);
-        // });
         setLocation("");
-        // console.log("error",);
+        navigate("/review");
       })
       .catch((e) => console.log("searchLocation error", e));
   };
@@ -49,9 +37,22 @@ function PlanTrip() {
     setLocation(e.target.value);
   };
 
+  const handleBudget = (e) => {
+    setBudget(e.target.value);
+  };
+
+  const handleTransportation = (e) => {
+    setTransportation(e.target.value);
+  };
+
+  const handleAttendees = (e) => {
+    setAttendees(e.target.value);
+  };
+
   const handlePost = (userID) => {
     try {
       let customer_id = localStorage.getItem(userID);
+
       let body = { customer_id, budget, location, transportation, attendees };
       console.log("body", body);
       let response = axios.post("http://localhost:3001/addconsultation", body);
@@ -62,9 +63,6 @@ function PlanTrip() {
     }
   };
 
-  const handleBudget= (e) => {
-    setBudget(e.target.value);
-  }
 
   return (
     <div style={{ display: "grid", gridTemplateColumns: "35%, 65%" }}>
@@ -77,29 +75,42 @@ function PlanTrip() {
       >
         <h1 style={{ width: "240px" }}>Plan Your Trip</h1>
         <TextField
-          style={{ marginBottom: "20px", marginLeft: "40%", width: "300px" }}
+          style={{
+            marginBottom: "20px",
+            marginLeft: "40%",
+            width: "300px",
+          }}
           helperText="What's your budget"
           label="amount"
-          inputRef={budgetInput}
           value={budget}
-          onChange={{handleBudget}}
+          onChange={handleBudget}
           required
         />
         <br />
         <TextField
-          style={{ marginBottom: "20px", marginLeft: "40%", width: "300px" }}
+          style={{
+            marginBottom: "20px",
+            marginLeft: "40%",
+            width: "300px",
+          }}
           helperText="Do you need Transportation?"
           label="???"
-          inputRef={transportationInput}
+          value={transportation}
+          onChange={handleTransportation}
           //foreing input react//
           required
         />
         <br />
         <TextField
-          style={{ marginBottom: "10px", marginLeft: "40%", width: "300px" }}
+          style={{
+            marginBottom: "10px",
+            marginLeft: "40%",
+            width: "300px",
+          }}
           helperText="How many?"
           label="Attendees"
-          inputRef={attendeesInput}
+          value={attendees}
+          onChange={handleAttendees}
           required
         />
         <br />
