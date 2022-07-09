@@ -10,41 +10,61 @@ function PlanTrip() {
   const locationInput = useRef("");
   const transportationInput = useRef("");
   const attendeesInput = useRef("");
-
+  const [data, setData] = useState({});
   const [budget, setBudget] = useState("");
   const [location, setLocation] = useState("");
   const [transportation, setTransportation] = useState("");
   const [attendees, setAttendees] = useState("");
 
-  const handleSubmit = () => {
-    console.log(budgetInput.current.value);
-    const budget = budgetInput.current.value;
-    const location = locationInput.current.value;
-    const transportation = transportationInput.current.value;
-    const attendees = attendeesInput.current.value;
-    const body = { budget, location, transportation, attendees };
-    console.log(body);
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=imperial&appid=895284fb2d2c50a520ea537456963d9c`;
+
+  const handleSubmit = (e) => {
+    // console.log(budgetInput.current.value);
+    // budget = budgetInput.current.value;
+    // location = locationInput.current.value;
+    // transportation = transportationInput.current.value;
+    // attendees = attendeesInput.current.value;
+    // const body = { budget, location, transportation, attendees };
+    // console.log(body);
+    searchLocation(e);
+    handlePost();
   };
 
-  const locationChange = () => {
-    setLocation(location);
+  const searchLocation = (event) => {
+    // if (event.key === "Enter") {
+    console.log(location);
+    axios
+      .get(url)
+      .then((response) => {
+        setData(response.data);
+        console.log("searchLocation response", response.data);
+        // });
+        setLocation("");
+        // console.log("error",);
+      })
+      .catch((e) => console.log("searchLocation error", e));
   };
 
-  const handlePost = () => {
+  const locationChange = (e) => {
+    setLocation(e.target.value);
+  };
+
+  const handlePost = (userID) => {
     try {
-      let response = axios.post("http://localhost:3001/addconsultation", {
-        budget,
-        location,
-        transportation,
-        attendees,
-      });
-      let body = [budget, location, transportation, attendees];
+      let customer_id = localStorage.getItem(userID);
+      let body = { customer_id, budget, location, transportation, attendees };
       console.log("body", body);
-      console.log("response", response);
+      let response = axios.post("http://localhost:3001/addconsultation", body);
+
+      console.log("handlepost", response);
     } catch (error) {
       console.log("error", error);
     }
   };
+
+  const handleBudget= (e) => {
+    setBudget(e.target.value);
+  }
 
   return (
     <div style={{ display: "grid", gridTemplateColumns: "35%, 65%" }}>
@@ -61,6 +81,8 @@ function PlanTrip() {
           helperText="What's your budget"
           label="amount"
           inputRef={budgetInput}
+          value={budget}
+          onChange={{handleBudget}}
           required
         />
         <br />
@@ -69,6 +91,7 @@ function PlanTrip() {
           helperText="Do you need Transportation?"
           label="???"
           inputRef={transportationInput}
+          //foreing input react//
           required
         />
         <br />
@@ -93,6 +116,7 @@ function PlanTrip() {
           id={"mylocation"}
           onChange={locationChange}
         >
+          <option>--Select an destionation--</option>
           <option>London, England</option>
           <option>Paris, France</option>
           <option>Sydney, Australia</option>
@@ -107,7 +131,12 @@ function PlanTrip() {
         </Button>
       </Box>
       <div style={{ gridColumn: "2" }}>
-        <Weather location={location} />
+        <Weather
+          searchLocation={searchLocation}
+          data={data}
+          location={location}
+          setLocation={setLocation}
+        />
       </div>
     </div>
   );

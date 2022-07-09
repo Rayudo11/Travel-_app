@@ -13,7 +13,8 @@ function LoginForm() {
 
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
-  
+  const [errorMessage, setErrorMessage] = useState("");
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async () => {
     try {
@@ -22,14 +23,26 @@ function LoginForm() {
         password,
       });
       console.log("response", response);
-      let usertoken = response.data.token;
+      let usertoken = await response.data.token;
+      let userID = await response.data.userID;
+      console.log("userID", userID);
       console.log("usertoken", usertoken);
       localStorage.setItem("token", usertoken);
-      console.log("getitem", localStorage.getItem("token"));
+      localStorage.setItem("userID", userID);
+      // console.log("localstorage", localStorage.getItem("userID"));
       navigate("/plan");
     } catch (error) {
       console.log("error", error);
-      
+      if (!error?.response) {
+        setErrorMessage("No Server Tesponse");
+      } else if (errRef.response?.status === 400) {
+        setErrorMessage("Missing Username or Password");
+      } else if (errRef.response?.status === 401) {
+        setErrorMessage("Unauthorized");
+      } else {
+        setErrorMessage("Login Failed");
+      }
+      errRef.current.focus();
     }
     //handle error//
     //learn about jwt tokens//
@@ -56,6 +69,13 @@ function LoginForm() {
           }}
         >
           Login
+        </p>
+        <p
+          ref={errRef}
+          className={errorMessage ? "errorMessage" : "offscreen"}
+          aria-live="assertive"
+        >
+          {errorMessage}
         </p>
         <TextField
           type="email"
